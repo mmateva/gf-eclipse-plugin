@@ -33,8 +33,7 @@ public class GFNewQueryGrammarSelectFromRepositoryPage extends GFNewQueryGrammar
 	public static final int SCREEN_WIDTH = 1024;
 	public static final int SCREEN_HEIGTH = 600;
 	
-	private GFTemplate template;
-	
+	/* GUI components */
 	private Composite container;
 	private List classesList;
 	private List instancesList;
@@ -43,8 +42,20 @@ public class GFNewQueryGrammarSelectFromRepositoryPage extends GFNewQueryGrammar
 	private Button [] continueRadios;
 	private Label chosenTemplates;
 
+	/**
+	 * The selected template in the template edit box
+	 */
+	private GFTemplate template;
+	
+	/**
+	 * Indicates if at least one template was added.
+	 */
 	private boolean currentTemplateWasAdded;
-	private boolean nextPageAdded;
+	
+	/**
+	 *  Indicates if the next page was selected 
+	 */
+	private boolean nextPageSelected;
 	
 	public static String getPageName() {
 		return "Select a binding for a template";
@@ -58,7 +69,7 @@ public class GFNewQueryGrammarSelectFromRepositoryPage extends GFNewQueryGrammar
 	protected GFNewQueryGrammarSelectFromRepositoryPage(ISelection selection, GFTemplate template) {
 		super(getPageName(), getPageDescription(), selection);
 		this.currentTemplateWasAdded = false;
-		this.nextPageAdded = false;
+		this.nextPageSelected = false;
 		this.template = template;
 	}
 	
@@ -181,7 +192,7 @@ public class GFNewQueryGrammarSelectFromRepositoryPage extends GFNewQueryGrammar
 	
 	@Override
 	protected void dialogChanged() {
-		if (currentTemplateWasAdded && nextPageAdded) {
+		if (currentTemplateWasAdded && nextPageSelected) {
 			setPageComplete(true);
 		}		
 	}
@@ -306,7 +317,7 @@ public class GFNewQueryGrammarSelectFromRepositoryPage extends GFNewQueryGrammar
 		} else {
 			addNextPage(saveToPage);
 		}
-		nextPageAdded = true;
+		nextPageSelected = true;
 		setPageComplete(currentTemplateWasAdded);
 	}
 
